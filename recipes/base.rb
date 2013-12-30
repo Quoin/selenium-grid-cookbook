@@ -27,17 +27,17 @@ directory "/var/log/selenium" do
   mode "0755"
 end
 
-remote_file File.join(Chef::Config[:file_cache_path], "selenium-server-standalone-#{node[:selenium][:version]}.jar") do
-  source "https://selenium.googlecode.com/files/selenium-server-standalone-#{node[:selenium][:version]}.jar"
+remote_file File.join(Chef::Config[:file_cache_path], "selenium-server-standalone-#{node['selenium-grid']['version']}.jar") do
+  source "https://selenium.googlecode.com/files/selenium-server-standalone-#{node['selenium-grid']['version']}.jar"
   action :create_if_missing
 end
 
 execute "copy selenium" do
-  command "cp selenium-server-standalone-#{node[:selenium][:version]}.jar /usr/local/selenium/"
+  command "cp selenium-server-standalone-#{node['selenium-grid']['version']}.jar /usr/local/selenium/"
   cwd File.join(Chef::Config[:file_cache_path])
 end
 
-file File.join("/usr/local/selenium", "selenium-server-standalone-#{node[:selenium][:version]}.jar") do
+file File.join("/usr/local/selenium", "selenium-server-standalone-#{node['selenium-grid']['version']}.jar") do
   owner "quoin"
   group "quoin"
   mode "0755"

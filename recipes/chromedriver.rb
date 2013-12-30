@@ -15,13 +15,13 @@ package "libgconf2-4" do
   action :install
 end
 
-remote_file File.join(Chef::Config[:file_cache_path], "chromedriver_#{node[:selenium][:chromedriver][:architecture]}_#{node[:selenium][:chromedriver][:version]}.zip") do
-  source "http://chromedriver.googlecode.com/files/chromedriver_#{node[:selenium][:chromedriver][:architecture]}_#{node[:selenium][:chromedriver][:version]}.zip"
+remote_file File.join(Chef::Config[:file_cache_path], "chromedriver_#{node['selenium-grid']['chromedriver']['architecture']}_#{node['selenium-grid']['chromedriver']['version']}.zip") do
+  source "http://chromedriver.googlecode.com/files/chromedriver_#{node['selenium-grid']['chromedriver']['architecture']}_#{node['selenium-grid']['chromedriver']['version']}.zip"
   action :create_if_missing
 end
 
 execute "unpack chromedriver" do
-  command "unzip -o -x chromedriver_#{node[:selenium][:chromedriver][:architecture]}_#{node[:selenium][:chromedriver][:version]}.zip -d /usr/local/selenium/"
+  command "unzip -o -x chromedriver_#{node['selenium-grid']['chromedriver']['architecture']}_#{node['selenium-grid']['chromedriver']['version']}.zip -d /usr/local/selenium/"
   cwd File.join(Chef::Config[:file_cache_path])
 end
 
