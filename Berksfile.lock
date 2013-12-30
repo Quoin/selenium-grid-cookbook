@@ -1,0 +1,28 @@
+{
+  "sources": {
+    "apt": {
+      "locked_version": "2.2.0"
+    },
+    "firefox": {
+      "locked_version": "1.0.7"
+    },
+    "xvfb": {
+      "locked_version": "0.0.1"
+    },
+    "x11vnc": {
+      "locked_version": "0.0.3"
+    },
+    "java": {
+      "locked_version": "1.15.0"
+    },
+    "windows": {
+      "locked_version": "1.11.0"
+    },
+    "chef_handler": {
+      "locked_version": "1.1.4"
+    },
+    "aws": {
+      "locked_version": "1.0.0"
+    }
+  }
+}
