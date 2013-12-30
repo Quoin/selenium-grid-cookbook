@@ -1,10 +1,14 @@
 site :opscode
 
+cookbook 'selenium-grid', :path => '.'
+
 cookbook 'apt'
-cookbook 'firefox'
 cookbook 'xvfb'
-cookbook 'x11vnc'
 cookbook 'java'
+cookbook 'windows', '1.11.0' #avoiding an annoying powershell dependency when doing linux installs
 
 #Quoin Cookbooks
-#cookbook 'quoin', :git => 'git@bitbucket.org:quoin/quoin-cookbook.git'
+cookbook 'quoin', :git => 'git@bitbucket.org:quoin/quoin-cookbook.git'
+cookbook 'x11vnc', :git => 'git@bitbucket.org:quoin/x11vnc-cookbook.git'
+
+

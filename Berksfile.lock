@@ -1,16 +1,13 @@
 {
   "sources": {
+    "selenium-grid": {
+      "path": "."
+    },
     "apt": {
       "locked_version": "2.2.0"
     },
-    "firefox": {
-      "locked_version": "1.0.7"
-    },
     "xvfb": {
       "locked_version": "0.0.1"
-    },
-    "x11vnc": {
-      "locked_version": "0.0.3"
     },
     "java": {
       "locked_version": "1.15.0"
@@ -18,11 +15,21 @@
     "windows": {
       "locked_version": "1.11.0"
     },
-    "chef_handler": {
-      "locked_version": "1.1.4"
+    "quoin": {
+      "locked_version": "0.1.0",
+      "git": "git@bitbucket.org:quoin/quoin-cookbook.git",
+      "ref": "5533cde6ee226b6c894701569f35a188676b7488"
+    },
+    "x11vnc": {
+      "locked_version": "0.2.0",
+      "git": "git@bitbucket.org:quoin/x11vnc-cookbook.git",
+      "ref": "bf890fbdddddf4e651988ca1c852ba149e301460"
     },
     "aws": {
       "locked_version": "1.0.0"
+    },
+    "chef_handler": {
+      "locked_version": "1.1.4"
     }
   }
 }
