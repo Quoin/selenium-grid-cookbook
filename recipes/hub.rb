@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: selenium
+# Cookbook Name:: selenium-grid
 # Recipe:: hub
 #
 # Copyright 2013, Quoin Inc.
@@ -7,12 +7,10 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe "selenium::base"
+include_recipe "selenium-grid::base"
 
 template "/etc/init.d/selenium-hub" do
   source "hub.initd.erb"
-  owner "quoin"
-  group "quoin"
   mode "0755"
 end
 

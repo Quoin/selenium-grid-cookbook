@@ -20,20 +20,20 @@ DESC="Selenium Grid Hub"
 NAME=selenium-hub
 SCRIPTNAME=/etc/init.d/$NAME
 
-LOG=/var/log/selenium/selenium.log
-ERRORLOG=/var/log/selenium/selenium.error.log
-HOME=/home/quoin
+LOG=<%= node['selenium-grid']['logdir'] %>/selenium.log
+ERRORLOG=<%= node['selenium-grid']['logdir'] %>/selenium.error.log
+HOME=<%= node['selenium-grid']['home'] %>
 
 PIDFILE=/var/run/selenium/selenium.pid
 DAEMON=/usr/bin/daemon
 DAEMON_ARGS="--name=$NAME --inherit  --pidfile=$PIDFILE --output=$LOG --stdout=$LOG --stderr=$ERRORLOG --chdir=$HOME"
 
-SELENIUM_GRID_HOME="/usr/local/selenium/"
-SELENIUM_GRID_VERSION="2.35.0"
+SELENIUM_GRID_HOME=<%= node['selenium-grid']['home'] %>
+SELENIUM_GRID_JAR=<%= node['selenium-grid']['server-jar'] %>
 
-SELENIUM_COMMAND="java -jar ${SELENIUM_GRID_HOME}selenium-server-standalone-${SELENIUM_GRID_VERSION}.jar -role hub &"
+SELENIUM_COMMAND="java -jar ${SELENIUM_GRID_HOME}/${SELENIUM_GRID_JAR} -role hub &"
 
-SELENIUM_USER=quoin
+SELENIUM_USER=<%= node['selenium-grid']['user'] %>
 SU=/bin/su
 
 # Exit if the package is not installed
