@@ -1,12 +1,13 @@
 #
 # Cookbook Name:: selenium
-# Recipe:: chrome 
+# Recipe:: chrome
 #
-# Copyright 2013, YOUR_COMPANY_NAME
+# Copyright 2013, Quoin Inc.
 #
 # All rights reserved - Do Not Redistribute
 #
 
+include_recipe "selenium::base"
 include_recipe "selenium::chromedriver"
 
 package "chromium-browser" do

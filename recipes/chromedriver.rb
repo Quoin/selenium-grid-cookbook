@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: selenium
-# Recipe:: chromedriver 
+# Recipe:: chromedriver
 #
-# Copyright 2013, YOUR_COMPANY_NAME
+# Copyright 2013, Quoin Inc.
 #
 # All rights reserved - Do Not Redistribute
 #

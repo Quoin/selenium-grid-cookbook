@@ -2,12 +2,12 @@
 # Cookbook Name:: selenium
 # Recipe:: hub
 #
-# Copyright 2013, YOUR_COMPANY_NAME
+# Copyright 2013, Quoin Inc.
 #
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe "selenium::default"
+include_recipe "selenium::base"
 
 template "/etc/init.d/selenium-hub" do
   source "hub.initd.erb"
