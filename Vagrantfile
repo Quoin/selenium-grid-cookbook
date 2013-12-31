@@ -10,7 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "precise64"
   config.vm.box_url = "http://files.vagrantup.com/precise64.box"
 
-  #config.vm.network :forwarded_port, guest: 38080, host: 38080
+  config.vm.hostname = "selenium-grid"
   config.ssh.forward_agent = true
 
   #Make sure you let Berkshelf tell Vagrant where to pull the cookbooks from.
@@ -18,19 +18,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.berkshelf.enabled = true
 
 
-  config.vm.define "hub", :primary => true do |hub|
-    hub.vm.hostname = "selenium-hub"
+  config.vm.network :forwarded_port, guest: 4444, host: 4444
+  config.vm.network :forwarded_port, guest: 5555, host: 5555
+  config.vm.network :forwarded_port, guest: 5556, host: 5556
+  config.vm.network :forwarded_port, guest: 99, host: 9999
 
-    hub.vm.provision :chef_solo do |chef|
-      chef.provisioning_path = "/tmp/vagrant-chef"
-      chef.log_level = :debug
-      chef.add_recipe "selenium-grid::hub"
-      #chef.json = {}
-    end
-
-    # config.vm.provider "virtualbox" do |v|
-    #   v.customize ["modifyvm", :id, "--memory", 1024]
-    # end
+  config.vm.provision :chef_solo do |chef|
+    chef.provisioning_path = "/tmp/vagrant-chef"
+    chef.log_level = :debug
+    chef.add_recipe "selenium-grid"
+    #chef.json = {}
   end
 
 end
