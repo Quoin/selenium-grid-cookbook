@@ -12,8 +12,8 @@ default['selenium-grid']['hub']['host'] = "localhost"
 default['selenium-grid']['hub']['port'] = "4444"
 default['selenium-grid']['hub']['url'] = "http://#{node['selenium-grid']['hub']['host']}:#{node['selenium-grid']['hub']['port']}"
 
-
 default['selenium-grid']['firefox']['port'] = "5555"
+
 default['selenium-grid']['chrome']['port'] = "5556"
 
 default['selenium-grid']['chromedriver']['architecture'] = "linux64"

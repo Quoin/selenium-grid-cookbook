@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: selenium
+# Cookbook Name:: selenium-grid
 # Recipe:: firefox-node
 #
 # Copyright 2013, Quoin Inc.
@@ -9,12 +9,10 @@
 
 
 include_recipe "firefox"
-include_recipe "selenium::base"
+include_recipe "selenium-grid::base"
 
 template "/etc/init.d/selenium-firefox" do
   source "firefox.initd.erb"
-  owner "quoin"
-  group "quoin"
   mode "0755"
 end
 
