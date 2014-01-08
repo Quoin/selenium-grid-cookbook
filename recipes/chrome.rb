@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: selenium
+# Cookbook Name:: selenium-grid
 # Recipe:: chrome
 #
 # Copyright 2013, Quoin Inc.
@@ -7,17 +7,13 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe "selenium::base"
-include_recipe "selenium::chromedriver"
+include_recipe "selenium-grid::base"
+include_recipe "selenium-grid::chromedriver"
 
-package "chromium-browser" do
-  action :install
-end
+package "chromium-browser"
 
 template "/etc/init.d/selenium-chrome" do
   source "chrome.initd.erb"
-  owner "quoin"
-  group "quoin"
   mode "0755"
 end
 

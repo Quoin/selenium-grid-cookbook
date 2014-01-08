@@ -8,4 +8,4 @@
 #
 include_recipe 'selenium-grid::hub'
 include_recipe 'selenium-grid::firefox'
-#include_recipe 'selenium-grid::chrome'
+include_recipe 'selenium-grid::chrome'
