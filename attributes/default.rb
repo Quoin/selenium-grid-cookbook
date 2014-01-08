@@ -18,6 +18,8 @@ default['selenium-grid']['chrome']['port'] = "5556"
 
 default['selenium-grid']['chromedriver']['architecture'] = "linux64"
 default['selenium-grid']['chromedriver']['version'] = "2.3"
+default['selenium-grid']['chromedriver']['driver-zip'] = "chromedriver_#{node['selenium-grid']['chromedriver']['architecture']}_#{node['selenium-grid']['chromedriver']['version']}.zip"
+default['selenium-grid']['chromedriver']['driver-zip-url'] = "http://chromedriver.googlecode.com/files/#{node['selenium-grid']['chromedriver']['driver-zip']}"
 
 default['selenium-grid']['firefox']['instances'] = "3"
 default['selenium-grid']['firefox']['version'] = "23.0.1"

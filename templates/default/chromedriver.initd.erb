@@ -17,21 +17,21 @@ DESC="Selenium Grid - Chrome driver"
 NAME=chromedriver
 SCRIPTNAME=/etc/init.d/$NAME
 
-LOG=/var/log/selenium/$NAME.log
-ERRORLOG=/var/log/selenium/$NAME.error.log
+LOG=<%= node['selenium-grid']['logdir'] %>/$NAME.log
+ERRORLOG=<%= node['selenium-grid']['logdir'] %>/$NAME.error.log
 
-HOME=/home/quoin
+HOME=<%= node['selenium-grid']['home'] %>
 
 PIDFILE=/var/run/selenium/$NAME.pid
 
 DAEMON=/usr/bin/daemon
 DAEMON_ARGS="--name=$NAME --inherit  --pidfile=$PIDFILE --output=$LOG --stdout=$LOG --stderr=$ERRORLOG --chdir=$HOME"
 
-SELENIUM_GRID_HOME="/usr/local/selenium/"
+SELENIUM_GRID_HOME=<%= node['selenium-grid']['home'] %>
 
-SELENIUM_COMMAND="${SELENIUM_GRID_HOME}chromedriver &"
+SELENIUM_COMMAND="${SELENIUM_GRID_HOME}/chromedriver &"
 
-SELENIUM_USER=quoin
+SELENIUM_USER=<%= node['selenium-grid']['user'] %>
 SU=/bin/su
 
 # Exit if the package is not installed
