@@ -17,30 +17,32 @@ DESC="Selenium Grid - Firefox node"
 NAME=selenium-firefox
 SCRIPTNAME=/etc/init.d/$NAME
 
-LOG=/var/log/selenium/$NAME.log
-ERRORLOG=/var/log/selenium/$NAME.error.log
+LOG=<%= node['selenium-grid']['logdir'] %>/$NAME.log
+ERRORLOG=<%= node['selenium-grid']['logdir'] %>/$NAME.error.log
 
-HOME=/home/quoin
+HOME=<%= node['selenium-grid']['home'] %>
 
 PIDFILE=/var/run/selenium/$NAME.pid
 
 DAEMON=/usr/bin/daemon
-DAEMON_ARGS="--name=$NAME --inherit  --pidfile=$PIDFILE --output=$LOG --stdout=$LOG --stderr=$ERRORLOG --chdir=$HOME" 
+DAEMON_ARGS="--name=$NAME --inherit  --pidfile=$PIDFILE --output=$LOG --stdout=$LOG --stderr=$ERRORLOG --chdir=$HOME"
 
-SELENIUM_GRID_HOME="/usr/local/selenium/"
-SELENIUM_GRID_VERSION="<%= node[:selenium][:version] %>"
+SELENIUM_GRID_HOME=<%= node['selenium-grid']['home'] %>
+SELENIUM_GRID_JAR=<%= node['selenium-grid']['server-jar'] %>
+SELENIUM_HUB_URL=<%= node['selenium-grid']['hub']['url'] %>/grid/register
 BROWSER_NAME="firefox"
-BROWSER_VERSION="<%= node[:selenium][:firefox][:version] %>"
-MAXINSTANCES="<%= node[:selenium][:firefox][:instances] %>"
+BROWSER_VERSION="<%= node['selenium-grid']['firefox']['version'] %>"
+MAXINSTANCES="<%= node['selenium-grid']['firefox']['instances'] %>"
 MAXSESSION="1"
 PLATFORM="LINUX"
-PORT="5555"
+PORT="<%= node['selenium-grid']['firefox']['port'] %>"
 
-DISPLAY_PORT=<%= node[:selenium][:xvfb][:display] %>
 
-SELENIUM_COMMAND="java -jar ${SELENIUM_GRID_HOME}selenium-server-standalone-${SELENIUM_GRID_VERSION}.jar -role node -port ${PORT} -hub http://cousy:4444/grid/register -browser browserName=${BROWSER_NAME},version=${BROWSER_VERSION},maxInstances=${MAXINSTANCES},maxSession=${MAXSESSION},platform=${PLATFORM} &"
+DISPLAY_PORT=<%= node['xvfb']['display'] %>
 
-SELENIUM_USER=quoin
+SELENIUM_COMMAND="java -jar ${SELENIUM_GRID_HOME}/${SELENIUM_GRID_JAR} -role node -port ${PORT} -hub ${SELENIUM_HUB_URL} -browser browserName=${BROWSER_NAME},version=${BROWSER_VERSION},maxInstances=${MAXINSTANCES},maxSession=${MAXSESSION},platform=${PLATFORM} &"
+
+SELENIUM_USER=<%= node['selenium-grid']['user'] %>
 SU=/bin/su
 
 # Exit if the package is not installed
@@ -78,14 +80,14 @@ check_tcp_port() {
     local assigned=$2
     local default=$3
 
-    if [ -n "$assigned" ]; then 
+    if [ -n "$assigned" ]; then
         port=$assigned
     else
         port=$default
     fi
-    
+
     count=`netstat --listen --numeric-ports | grep \:$port | grep -c . `
-    
+
     if [ $count -ne 0 ]; then
         echo "The selected $service port ($port) seems to be in use by another program "
         echo "Please select another port to use for $NAME"
@@ -110,8 +112,8 @@ do_start()
     # Verify that the selenium port is not already in use, winstone does not exit
     # even for BindException
     #check_tcp_port "http" "$HTTP_PORT" "4444" || return 1
-    
-    
+
+
     # --user in daemon doesn't prepare environment variables like HOME, USER, LOGNAME or USERNAME,
     # so we let su do so for us now
     export DISPLAY=:${DISPLAY_PORT}.0
@@ -122,16 +124,16 @@ do_start()
 #
 # Verify that all jenkins processes have been shutdown
 # and if not, then do killall for them
-# 
-get_running() 
+#
+get_running()
 {
     return `ps -U $SELENIUM_USER --no-headers -f | egrep -e '(java|daemon)' | grep -c . `
 }
 
-force_stop() 
+force_stop()
 {
     get_running
-    if [ $? -ne 0 ]; then 
+    if [ $? -ne 0 ]; then
 	start-stop-daemon --stop --pidfile $PIDFILE
     fi
 }
@@ -182,20 +184,20 @@ case "$1" in
     ;;
   status)
       get_daemon_status
-      case "$?" in 
+      case "$?" in
          0) echo "Selenium Grid is running with the pid `cat $PIDFILE`";;
-         *) 
+         *)
               get_running
               procs=$?
-              if [ $procs -eq 0 ]; then 
+              if [ $procs -eq 0 ]; then
                   echo -n "Selenium Grid is not running"
-                  if [ -f $PIDFILE ]; then 
+                  if [ -f $PIDFILE ]; then
                       echo ", but the pidfile ($PIDFILE) still exists"
-                  else 
+                  else
                       echo
                   fi
 
-              else 
+              else
                   echo "$procs instances of jenkins are running at the moment"
                   echo "but the pidfile $PIDFILE is missing"
               fi

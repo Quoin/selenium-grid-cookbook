@@ -18,30 +18,31 @@ DESC="Selenium Grid - Chrome node"
 NAME=selenium-chromenode
 SCRIPTNAME=/etc/init.d/$NAME
 
-LOG=/var/log/selenium/$NAME.log
-ERRORLOG=/var/log/selenium/$NAME.error.log
+LOG=<%= node['selenium-grid']['logdir'] %>/$NAME.log
+ERRORLOG=<%= node['selenium-grid']['logdir'] %>/$NAME.error.log
 
-HOME=/home/quoin
+HOME=<%= node['selenium-grid']['home'] %>
 
 PIDFILE=/var/run/selenium/$NAME.pid
 
 DAEMON=/usr/bin/daemon
 DAEMON_ARGS="--name=$NAME --inherit  --pidfile=$PIDFILE --output=$LOG --stdout=$LOG --stderr=$ERRORLOG --chdir=$HOME"
 
-SELENIUM_GRID_HOME="/usr/local/selenium/"
-SELENIUM_GRID_VERSION="2.35.0"
+SELENIUM_GRID_HOME=<%= node['selenium-grid']['home'] %>
+SELENIUM_GRID_JAR=<%= node['selenium-grid']['server-jar'] %>
+SELENIUM_HUB_URL=<%= node['selenium-grid']['hub']['url'] %>/grid/register
 BROWSER_NAME="chrome"
-BROWSER_VERSION="28.0.1500.71"
-MAXINSTANCES="3"
+BROWSER_VERSION="<%= node['selenium-grid']['chrome']['version'] %>"
+MAXINSTANCES="<%= node['selenium-grid']['chrome']['instances'] %>"
 MAXSESSION="1"
 PLATFORM="LINUX"
-PORT="5556"
+PORT="<%= node['selenium-grid']['chrome']['port'] %>"
 
-DISPLAY_PORT=99
+DISPLAY_PORT=<%= node['xvfb']['display'] %>
 
-SELENIUM_COMMAND="java -jar ${SELENIUM_GRID_HOME}selenium-server-standalone-${SELENIUM_GRID_VERSION}.jar -role node -port ${PORT} -hub http://cousy:4444/grid/register -browser browserName=${BROWSER_NAME},version=${BROWSER_VERSION},maxInstances=${MAXINSTANCES},maxSession=${MAXSESSION},platform=${PLATFORM} -Dwebdriver.chrome.driver=${SELENIUM_GRID_HOME}chromedriver &"
+SELENIUM_COMMAND="java -jar ${SELENIUM_GRID_HOME}/${SELENIUM_GRID_JAR} -role node -port ${PORT} -hub ${SELENIUM_HUB_URL} -browser browserName=${BROWSER_NAME},version=${BROWSER_VERSION},maxInstances=${MAXINSTANCES},maxSession=${MAXSESSION},platform=${PLATFORM} -Dwebdriver.chrome.driver=${SELENIUM_GRID_HOME}/chromedriver &"
 
-SELENIUM_USER=quoin
+SELENIUM_USER=<%= node['selenium-grid']['user'] %>
 SU=/bin/su
 
 # Exit if the package is not installed
