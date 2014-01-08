@@ -25,6 +25,11 @@
       "git": "git@bitbucket.org:quoin/x11vnc-cookbook.git",
       "ref": "bf890fbdddddf4e651988ca1c852ba149e301460"
     },
+    "firefox": {
+      "locked_version": "0.1.0",
+      "git": "git@bitbucket.org:quoin/firefox-cookbook.git",
+      "ref": "1aa5ba5782f2d8fbb3450e7ce0969312260261fc"
+    },
     "aws": {
       "locked_version": "1.0.0"
     },
