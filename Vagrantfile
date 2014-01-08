@@ -16,6 +16,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #Make sure you let Berkshelf tell Vagrant where to pull the cookbooks from.
   #The Berksfile is located in the same directory as this Vagrantfile
   config.berkshelf.enabled = true
+  config.omnibus.chef_version = '11.6.0'
 
 
   config.vm.network :forwarded_port, guest: 4444, host: 4444
