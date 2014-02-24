@@ -4,7 +4,6 @@ def latest_chrome_driver
   result = open('http://chromedriver.storage.googleapis.com/LATEST_RELEASE').read
 end
 
-
 default['selenium-grid']['user'] = "selenium"
 default['selenium-grid']['group'] = "selenium"
 default['selenium-grid']['home'] = "/srv/selenium"
@@ -23,7 +22,7 @@ default['selenium-grid']['firefox']['port'] = "5555"
 default['selenium-grid']['chrome']['port'] = "5556"
 
 default['selenium-grid']['chromedriver']['architecture'] = "linux64"
-default['selenium-grid']['chromedriver']['version'] = latest_chrome_driver
+default['selenium-grid']['chromedriver']['version'] = latest_chrome_driver ||= "2.9"
 default['selenium-grid']['chromedriver']['driver-zip'] = "chromedriver_#{node['selenium-grid']['chromedriver']['architecture']}.zip"
 default['selenium-grid']['chromedriver']['driver-zip-url'] = "http://chromedriver.storage.googleapis.com/#{node['selenium-grid']['chromedriver']['version']}/#{node['selenium-grid']['chromedriver']['driver-zip']}"
 
