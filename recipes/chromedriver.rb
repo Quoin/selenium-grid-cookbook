@@ -11,7 +11,8 @@ package "unzip"
 package "libgconf2-4"
 
 remote_file "#{Chef::Config[:file_cache_path]}/#{node['selenium-grid']['chromedriver']['driver-zip']}" do
-  source node['selenium-grid']['chromedriver']['driver-zip-url']
+  extend Chrome::Helpers
+  source drive_zip_url
   action :create_if_missing
 end
 
