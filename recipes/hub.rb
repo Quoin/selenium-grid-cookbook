@@ -9,11 +9,4 @@
 
 include_recipe "selenium-grid::base"
 
-template "/etc/init.d/selenium-hub" do
-  source "hub.initd.erb"
-  mode "0755"
-end
-
-service "selenium-hub" do
-  action [:start, :enable]
-end
+selenium_service :hub

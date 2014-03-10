@@ -1,4 +1,5 @@
 
+default['java']['jdk_version'] = '7'
 
 default['selenium-grid']['user'] = "selenium"
 default['selenium-grid']['group'] = "selenium"

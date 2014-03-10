@@ -32,7 +32,17 @@ SELENIUM_GRID_HOME=<%= node['selenium-grid']['home'] %>
 SELENIUM_GRID_JAR=<%= node['selenium-grid']['server-jar'] %>
 SELENIUM_PORT=<%= node['selenium-grid']['hub']['port'] %>
 
-SELENIUM_COMMAND="java -jar ${SELENIUM_GRID_HOME}/${SELENIUM_GRID_JAR} -role hub -port ${SELENIUM_PORT} &"
+<%
+  @role_flag = case @selenium_role
+              when :hub
+                '-role hub'
+              when :node
+                '-role node'
+              when :standalone
+                ''
+              end
+%>
+SELENIUM_COMMAND="java -jar ${SELENIUM_GRID_HOME}/${SELENIUM_GRID_JAR} <%= @role_flag %> -port ${SELENIUM_PORT}"
 
 SELENIUM_USER=<%= node['selenium-grid']['user'] %>
 SU=/bin/su
